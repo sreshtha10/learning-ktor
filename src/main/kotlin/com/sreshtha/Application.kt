@@ -1,26 +1,23 @@
 package com.sreshtha
 
+import com.sreshtha.plugins.configureRouting
+import io.ktor.serialization.kotlinx.json.*
+import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
-import com.sreshtha.plugins.*
-import io.ktor.server.application.*
-import io.ktor.server.response.*
+import io.ktor.server.plugins.*
 import io.ktor.server.routing.*
 
 fun main(){
     embeddedServer(Netty, port = 8080, host = "0.0.0.0"){
-        install(Routing){
-            homeRoute()
+        install(ContentNegotiation){
+            json()
         }
+        install(Routing){
+            configureRouting()
+        }
+
+
     }.start()
 }
 
-fun Routing.homeRoute(){
-    get() {
-        call.respond("Hello KTOR")
-    }
-
-    post() {
-
-    }
-}
