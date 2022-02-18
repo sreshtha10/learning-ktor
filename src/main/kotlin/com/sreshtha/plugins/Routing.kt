@@ -5,6 +5,7 @@ import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
+import java.io.File
 
 fun Application.configureRouting() {
 
@@ -55,7 +56,33 @@ fun Application.configureRouting() {
             call.respondText { "Header attached" }
         }
 
-        
+        get("/fileDownload"){
+            val file  = File("files/img1.jpg")
+            // downloading files
+            call.response.header(
+                HttpHeaders.ContentDisposition,
+                ContentDisposition.Attachment.withParameter(
+                    ContentDisposition.Parameters.FileName,
+                    "image.jpg"
+                ).toString()
+            )
+
+            call.respondFile(file)
+        }
+
+
+        get("/fileOpen"){
+            val file= File("files/img1.jpg")
+            call.response.header(
+                HttpHeaders.ContentDisposition,
+                ContentDisposition.Inline.withParameter(
+                    ContentDisposition.Parameters.FileName, "open.jpg"
+                ).toString()
+            )
+          call.respondFile(file)
+        }
+
+
 
     }
 }
