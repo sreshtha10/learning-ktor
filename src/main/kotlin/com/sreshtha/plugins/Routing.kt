@@ -1,5 +1,6 @@
 package com.sreshtha.plugins
 
+import io.ktor.http.*
 import io.ktor.server.application.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
@@ -37,8 +38,24 @@ fun Application.configureRouting() {
             val user = call.receive<User>()
             println(user)
             call.respondText("Login")
+
         }
 
+        get("/response"){
+            //call.respondText("Something went wrong!", status = HttpStatusCode.NotFound)
+            //Sending json as a response
+            val user = User(email = "sreshtha.mehrotra@gmail.com", password = "123")
+            call.respond(user)
+        }
+
+
+        get("/headers"){
+            //adding headers to our response.
+            call.response.headers.append(name = "server-name", value = "ktor-server")
+            call.respondText { "Header attached" }
+        }
+
+        
 
     }
 }
