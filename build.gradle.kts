@@ -26,6 +26,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization:$ktor_version")
     implementation("io.ktor:ktor-server-content-negotiation-jvm:$ktor_version")
     implementation("io.ktor:ktor-serialization-kotlinx-json-jvm:$ktor_version")
+    implementation("mysql:mysql-connector-java:8.0.28")
+    implementation("org.ktorm:ktorm-core:3.4.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")
 
 }
